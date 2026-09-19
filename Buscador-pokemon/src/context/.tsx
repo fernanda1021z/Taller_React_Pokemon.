@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from 'react';
 
 export interface Usuario {
   id: number;
@@ -70,7 +70,7 @@ export const PokemonProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const LISTA: Usuario[] = JSON.parse(data);
       setentrenadoresActivo(LISTA);
       const idActivo = localStorage.getItem('entrenador_Activo_id');
-      if (idActivo) {
+      if (idActivo) {   
         const encontrado = LISTA.find(U => U.id.toString() === idActivo);
         if (encontrado) {
           setentrenadorActivo(encontrado);

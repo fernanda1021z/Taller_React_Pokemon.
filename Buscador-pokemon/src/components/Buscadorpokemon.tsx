@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { usePokemonContext, type pokemonTarjeta } from "../context/PokemonContext";
 
 export const BuscadorPokemon: React.FC = () => {
 
     const { EntrenadorActivo, GuardarMochila } = usePokemonContext();
+    const navigate = useNavigate();
 
     const [busqueda, setBusqueda] = useState('');
     const [pokemonActual, setPokemonActual] = useState<pokemonTarjeta | null>(null);
@@ -46,13 +48,18 @@ export const BuscadorPokemon: React.FC = () => {
     }; 
 
     const clickGuardar = () => {
-        if(!EntrenadorActivo){
-            alert('Debes seleccionar o registrar un entrenador')
+        if (!EntrenadorActivo) {
+            alert('Debes seleccionar o registrar un entrenador');
+            return;
         }
 
         if (pokemonActual) {
             GuardarMochila(pokemonActual);
             alert(`El pokemon ${pokemonActual.name} es guardado en la mochila de ${EntrenadorActivo.nombreCompleto}`);
+            setBusqueda('');
+            setPokemonActual(null);
+            setMensajeError(null);
+            navigate('/inventario');
         }
     }
 
